@@ -1,0 +1,52 @@
+using formatter 
+https://www.dpriver.com/pp/sqlformat.htm
+
+Tables
+
+CREATE TABLE Donuts
+  (
+     id          INT PRIMARY KEY GENERATED always AS IDENTITY,
+     name        VARCHAR (255) UNIQUE NOT NULL,
+     quantity    INT NOT NULL DEFAULT 1,
+     description TEXT,
+     type_id     INT NOT NULL REFERENCES Types(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+     shape_id    INT NOT NULL REFERENCES Shapes(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+     filling_id  INT NULL REFERENCES Fillings(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+     topping_id  INT NULL REFERENCES Toppings(id) ON DELETE RESTRICT ON UPDATE CASCADE
+  ); 
+
+CREATE TABLE Types
+  (
+     id    INT PRIMARY KEY GENERATED always AS IDENTITY,
+     name  VARCHAR (255) UNIQUE NOT NULL,
+     price DEC (4, 2) NOT NULL
+  ); 
+
+// types: Yeast,Cake
+
+CREATE TABLE Shapes
+  (
+     id    INT PRIMARY KEY GENERATED always AS IDENTITY,
+     name  VARCHAR (255) UNIQUE NOT NULL,
+     price DEC (4, 2) NOT NULL
+  ); 
+
+// shapes: Round, Twist, Long
+
+CREATE TABLE Types
+  (
+     id    INT PRIMARY KEY GENERATED always AS IDENTITY,
+     name  VARCHAR (255) UNIQUE NOT NULL,
+     price DEC (4, 2) NOT NULL
+  ); 
+
+// fillings: Cream, Custard
+
+CREATE TABLE Toppings
+  (
+     id    INT PRIMARY KEY GENERATED always AS IDENTITY,
+     name  VARCHAR (255) UNIQUE NOT NULL,
+     price DEC (4, 2) NOT NULL
+  ); 
+
+// toppings: Plain, Glazed, Frosted, Sprinkled, Powdered, Sugar, Crumble
