@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donuts</title>
+  </head>
+  <body>
+    <h1>Donut Inventory</h1>
+    <ul>
+      <% locals.donuts.forEach((donut) => { %>
+      <li>
+        <h3><%= donut.name %></h3>
+        <p>quantity: <%= donut.quantity %></p>
+        <i><%= donut.description %></i>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
