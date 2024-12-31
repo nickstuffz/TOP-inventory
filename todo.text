@@ -2,20 +2,104 @@ Tables
 using formatter 
 https://sqlformat.darold.net/
 
-If I want to allow multiple toppings per donut:
+SubQuery version:
 
--- Create the Donut_Toppings junction table
-CREATE TABLE Donut_Toppings
-  (
-     donut_id    INT NOT NULL REFERENCES Donuts(id) ON DELETE CASCADE,
-     topping_id  INT NOT NULL REFERENCES Toppings(id) ON DELETE CASCADE,
-     PRIMARY KEY (donut_id, topping_id)
-  );
+SELECT
+  donut,
+  type,
+  shape,
+  filling,
+  toppings,
+  type_price + shape_price + COALESCE(filling_price, 0) + COALESCE(toppings_price, 0) AS total_price
+FROM (
+  SELECT
+    donuts.name AS donut,
+    types.name AS type,
+    types.price AS type_price,
+    shapes.name AS shape,
+    shapes.price AS shape_price,
+    fillings.name AS filling,
+    fillings.price AS filling_price,
+    ARRAY_AGG(toppings.name) FILTER (WHERE toppings.name IS NOT NULL) AS toppings,
+    SUM(toppings.price) AS toppings_price
+  FROM
+    donuts
+  LEFT JOIN types ON donuts.type_id = types.id
+  LEFT JOIN shapes ON donuts.shape_id = shapes.id
+  LEFT JOIN fillings ON donuts.filling_id = fillings.id
+  LEFT JOIN donut_toppings ON donuts.id = donut_toppings.donut_id
+  LEFT JOIN toppings ON donut_toppings.topping_id = toppings.id
+GROUP BY
+  donuts.id,
+  donuts.name,
+  types.name,
+  types.price,
+  shapes.name,
+  shapes.price,
+  fillings.name,
+  fillings.price
+ORDER BY
+  donuts.id) AS subquery;
 
--- Example of inserting a donut with multiple toppings:
-INSERT INTO Donut_Toppings (donut_id, topping_id)
-VALUES
-    (1, 1), -- Donut ID 1 with topping 'Glaze'
-    (1, 4), -- Donut ID 1 with topping 'Sprinkles'
-    (2, 2), -- Donut ID 2 with topping 'Sugar'
-    (2, 5); -- Donut ID 2 with topping 'Powder'
+cGPT suggestion:
+
+SELECT
+  donuts.name AS donut,
+  types.name AS type,
+  types.price AS typePrice,
+  shapes.name AS shape,
+  shapes.price AS shapePrice,
+  fillings.name AS filling,
+  COALESCE(fillings.price, 0) AS fillingPrice,
+  STRING_AGG(toppings.name, ', ') AS toppings,
+  COALESCE(SUM(toppings.price), 0) AS toppingPrice,
+  (types.price + shapes.price + COALESCE(fillings.price, 0) + COALESCE(SUM(toppings.price), 0)) AS totalPrice
+FROM
+  donuts
+  LEFT JOIN types ON donuts.type_id = types.id
+  LEFT JOIN shapes ON donuts.shape_id = shapes.id
+  LEFT JOIN fillings ON donuts.filling_id = fillings.id
+  LEFT JOIN donut_toppings ON donuts.id = donut_toppings.donut_id
+  LEFT JOIN toppings ON donut_toppings.topping_id = toppings.id
+GROUP BY
+  donuts.id,
+  donuts.name,
+  types.name,
+  types.price,
+  shapes.name,
+  shapes.price,
+  fillings.name,
+  fillings.price;
+
+Revision:
+
+SELECT
+  donuts.name AS name,
+  donuts.quantity as quantity,
+  donuts.description as description,
+  types.name AS type,
+  shapes.name AS shape,
+  fillings.name AS filling,
+  ARRAY_AGG(toppings.name) FILTER (WHERE toppings.name IS NOT NULL) AS toppings,
+  (types.price + shapes.price + COALESCE(fillings.price, 0) + COALESCE(SUM(toppings.price), 0)) AS price
+FROM
+  donuts
+  LEFT JOIN types ON donuts.type_id = types.id
+  LEFT JOIN shapes ON donuts.shape_id = shapes.id
+  LEFT JOIN fillings ON donuts.filling_id = fillings.id
+  LEFT JOIN donut_toppings ON donuts.id = donut_toppings.donut_id
+  LEFT JOIN toppings ON donut_toppings.topping_id = toppings.id
+GROUP BY
+  donuts.id,
+  donuts.name,
+  donuts.quantity,
+  donuts.description,
+  types.name,
+  types.price,
+  shapes.name,
+  shapes.price,
+  fillings.name,
+  fillings.price
+ORDER BY
+  donuts.id;
+
