@@ -6,25 +6,25 @@
     <title>Donuts</title>
     <link rel="stylesheet" href="../public/styles.css" type="text/css" />
   </head>
+
   <body>
     <div class="container-main">
       <div class="panel-inventory">
         <h1>Donut Inventory</h1>
         <ul>
-          <% locals.donuts.forEach((donut) => { %>
+          <% locals.inventory.forEach((donut) => { %>
           <li>
             <h3><%= donut.name %></h3>
             <span class="type"><%= donut.type %></span>
             <span class="shape"><%= donut.shape %></span>
             <% if (donut.filling !== null) { %>
             <span class="filling"><%= donut.filling %></span>
-            <% } %> <% if (donut.toppings !== null) {
+            <% } %> <% if (donut.toppings !== null) { %> <%
             donut.toppings.forEach((topping) => { %>
             <span class="topping"><%= topping %></span>
             <% })} %>
             <p>quantity: <%= donut.quantity %></p>
             <p>price: $<%= donut.price %></p>
-
             <i><%= donut.description %></i>
           </li>
           <% }) %>
@@ -32,10 +32,13 @@
       </div>
       <div class="panel-elements">
         <h1>Donut Elements</h1>
-        <h2>Types</h2>
-        <h2>Shapes</h2>
-        <h2>Fillings</h2>
-        <h2>Toppings</h2>
+        <% locals.elements.forEach((element) => { %>
+        <h2><%= element.category %></h2>
+        <% element.names.forEach((name) => { %>
+        <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
+          ><%= name %></span
+        >
+        <% })}) %>
       </div>
     </div>
   </body>

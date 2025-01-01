@@ -1,12 +1,9 @@
 const db = require("../db/queries");
 
 async function indexGet(req, res) {
-  const donuts = await db.getInventory();
-  console.log(donuts);
-
+  const inventory = await db.getInventory();
   const elements = await db.getElements();
-  console.log(elements);
-  res.render("index", { donuts: donuts });
+  res.render("index", { inventory: inventory, elements: elements });
 }
 
 module.exports = { indexGet };
