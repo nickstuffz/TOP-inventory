@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Donuts</title>
+    <link rel="stylesheet" href="../public/styles.css" type="text/css" />
   </head>
   <body>
     <h1>Donut Inventory</h1>
@@ -11,14 +12,18 @@
       <% locals.donuts.forEach((donut) => { %>
       <li>
         <h3><%= donut.name %></h3>
+        <span><%= donut.type %></span>
+        <span><%= donut.shape %></span>
+        <% if (donut.filling !== null) { %>
+        <span><%= donut.filling %></span>
+        <% } %> <% if (donut.toppings !== null) {
+        donut.toppings.forEach((topping) => { %>
+        <span><%= topping %></span>
+        <% })} %>
         <p>quantity: <%= donut.quantity %></p>
         <p>price: $<%= donut.price %></p>
 
         <i><%= donut.description %></i>
-        <p>type: <%= donut.type %></p>
-        <p>shape: <%= donut.shape %></p>
-        <p>filling: <%= donut.filling %></p>
-        <p>toppings: <%= donut.toppings %></p>
       </li>
       <% }) %>
     </ul>
