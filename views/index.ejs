@@ -7,25 +7,36 @@
     <link rel="stylesheet" href="../public/styles.css" type="text/css" />
   </head>
   <body>
-    <h1>Donut Inventory</h1>
-    <ul>
-      <% locals.donuts.forEach((donut) => { %>
-      <li>
-        <h3><%= donut.name %></h3>
-        <span><%= donut.type %></span>
-        <span><%= donut.shape %></span>
-        <% if (donut.filling !== null) { %>
-        <span><%= donut.filling %></span>
-        <% } %> <% if (donut.toppings !== null) {
-        donut.toppings.forEach((topping) => { %>
-        <span><%= topping %></span>
-        <% })} %>
-        <p>quantity: <%= donut.quantity %></p>
-        <p>price: $<%= donut.price %></p>
+    <div class="container-main">
+      <div class="panel-inventory">
+        <h1>Donut Inventory</h1>
+        <ul>
+          <% locals.donuts.forEach((donut) => { %>
+          <li>
+            <h3><%= donut.name %></h3>
+            <span class="type"><%= donut.type %></span>
+            <span class="shape"><%= donut.shape %></span>
+            <% if (donut.filling !== null) { %>
+            <span class="filling"><%= donut.filling %></span>
+            <% } %> <% if (donut.toppings !== null) {
+            donut.toppings.forEach((topping) => { %>
+            <span class="topping"><%= topping %></span>
+            <% })} %>
+            <p>quantity: <%= donut.quantity %></p>
+            <p>price: $<%= donut.price %></p>
 
-        <i><%= donut.description %></i>
-      </li>
-      <% }) %>
-    </ul>
+            <i><%= donut.description %></i>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+      <div class="panel-elements">
+        <h1>Donut Elements</h1>
+        <h2>Types</h2>
+        <h2>Shapes</h2>
+        <h2>Fillings</h2>
+        <h2>Toppings</h2>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,6 +1,6 @@
 const pool = require("./pool");
 
-const donutDetailsSQL = `
+const inventorySQL = `
 SELECT
   donuts.name AS name,
   donuts.quantity as quantity,
@@ -32,9 +32,23 @@ ORDER BY
   donuts.id;
 `;
 
-async function getAllDonutsDetails() {
-  const { rows } = await pool.query(donutDetailsSQL);
+const elementsSQL = `
+SELECT
+    types.name AS types,
+    shapes.name AS shapes,
+    fillings.name AS fillings,
+    toppings.name AS toppings
+FROM
+    types
+`;
+
+async function getInventory() {
+  const { rows } = await pool.query(inventorySQL);
   return rows;
 }
 
-module.exports = { getAllDonutsDetails };
+async function getElements() {
+  return "elements";
+}
+
+module.exports = { getInventory, getElements };
