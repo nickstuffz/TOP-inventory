@@ -15,13 +15,15 @@ button {
 }
 
 span {
+  display: inline-block;
   border-style: solid;
   border-width: 1px;
   padding: 4px;
   font-size: 16px;
+  margin: 0;
 }
 
-.bg-modal {
+#bg-modal {
   background-color: burlywood;
   height: 100%;
   width: 100%;
@@ -29,7 +31,7 @@ span {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  /* display: none; */
+  display: none;
 }
 
 .modal {

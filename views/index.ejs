@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <div class="bg-modal">
+    <div id="bg-modal">
       <div class="modal"></div>
     </div>
     <div class="container-main">
@@ -43,30 +43,54 @@
           <h1>Donut Elements</h1>
         </div>
         <% locals.elements.forEach((element) => { %>
-        <div class="header-element">
-          <button>Edit Element</button>
-          <h2 class="element"><%= element.category %></h2>
+        <div>
+          <div class="header-element">
+            <button>Edit Element</button>
+            <h2 class="element"><%= element.category %></h2>
+          </div>
+          <% element.names.forEach((name) => { %>
+          <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
+            ><%= name %>
+          </span>
+          <% }) %>
         </div>
-        <% element.names.forEach((name) => { %>
-        <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
-          ><%= name %>
-        </span>
-        <% })}) %>
+        <% }) %>
       </div>
     </div>
   </body>
   <script>
     const inventory = <%- JSON.stringify(locals.inventory) %>;
+    const bg_modal = document.getElementById("bg-modal");
     console.log(inventory)
+
+
 
     function addDonut() {
       console.log("add donut");
+      openModal()
     }
 
     function editDonut(donut_id) {
-      console.log(donut_id);
+      console.log(`edit donut: ${donut_id}`);
+      openModal()
     }
 
-    function openModal() {}
+    function openModal() {
+      console.log("openmodal")
+      bg_modal.style.display = "block";
+      bg_modal.addEventListener("click", modalClick)
+    }
+
+    function modalClick(event) {
+      if (event.target===bg_modal) {
+        closeModal()
+      }
+    }
+
+    function closeModal() {
+      console.log("closemodal")
+      bg_modal.style.display = "";
+      bg_modal.removeEventListener("click", modalClick)
+      }
   </script>
 </html>
