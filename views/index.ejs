@@ -11,24 +11,23 @@
     <div class="bg-modal">
       <div class="modal"></div>
     </div>
-
     <div class="container-main">
       <div class="panel-inventory">
         <div class="header-inventory">
           <h1>Donut Inventory</h1>
-          <button>Add Donut</button>
+          <button onClick="addDonut()">Add Donut</button>
         </div>
         <% locals.inventory.forEach((donut) => { %>
         <div>
           <div class="header-donut">
             <h3 class="donut"><%= donut.name %></h3>
-            <button>Edit Donut</button>
+            <button onClick="editDonut('<%= donut.id %>')">Edit Donut</button>
           </div>
           <span class="type"><%= donut.type %></span>
           <span class="shape"><%= donut.shape %></span>
           <% if (donut.filling !== null) { %>
           <span class="filling"><%= donut.filling %></span>
-          <% } %> <% if (donut.toppings !== null) { %> <%
+          <% } if (donut.toppings !== null) { %> <%
           donut.toppings.forEach((topping) => { %>
           <span class="topping"><%= topping %></span>
           <% })} %>
@@ -50,13 +49,24 @@
         </div>
         <% element.names.forEach((name) => { %>
         <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
-          ><%= name %></span
-        >
+          ><%= name %>
+        </span>
         <% })}) %>
       </div>
     </div>
   </body>
   <script>
-    console.log("potato");
+    const inventory = <%- JSON.stringify(locals.inventory) %>;
+    console.log(inventory)
+
+    function addDonut() {
+      console.log("add donut");
+    }
+
+    function editDonut(donut_id) {
+      console.log(donut_id);
+    }
+
+    function openModal() {}
   </script>
 </html>

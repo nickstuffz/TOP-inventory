@@ -2,6 +2,7 @@ const pool = require("./pool");
 
 const getInventorySQL = `
 SELECT
+  donuts.id AS id,
   donuts.name AS name,
   donuts.quantity as quantity,
   donuts.description as description,
