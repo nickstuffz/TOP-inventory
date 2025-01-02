@@ -10,11 +10,17 @@
   <body>
     <div class="container-main">
       <div class="panel-inventory">
-        <h1>Donut Inventory</h1>
+        <div class="header-inventory">
+          <h1>Donut Inventory</h1>
+          <button>Add Donut</button>
+        </div>
         <ul>
           <% locals.inventory.forEach((donut) => { %>
           <li>
-            <h3><%= donut.name %></h3>
+            <div class="header-donut">
+              <h3 class="donut"><%= donut.name %></h3>
+              <button>Edit Donut</button>
+            </div>
             <span class="type"><%= donut.type %></span>
             <span class="shape"><%= donut.shape %></span>
             <% if (donut.filling !== null) { %>
@@ -31,9 +37,15 @@
         </ul>
       </div>
       <div class="panel-elements">
-        <h1>Donut Elements</h1>
+        <div class="header-elements">
+          <button>Add Element</button>
+          <h1>Donut Elements</h1>
+        </div>
         <% locals.elements.forEach((element) => { %>
-        <h2><%= element.category %></h2>
+        <div class="header-element">
+          <button>Edit Element</button>
+          <h2 class="element"><%= element.category %></h2>
+        </div>
         <% element.names.forEach((name) => { %>
         <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
           ><%= name %></span

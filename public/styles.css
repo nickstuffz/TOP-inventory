@@ -2,20 +2,36 @@ body {
   text-wrap: nowrap;
 }
 
+button {
+  height: 18px;
+  font-size: 12px;
+}
+
 .container-main {
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
 }
 
-.panel-inventory {
+.header-inventory,
+.header-donut {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-elements,
+.header-element {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: end;
 }
 
 span {
   border-style: solid;
   border-width: 1px;
   padding: 4px;
-  font-size: 0.85rem;
+  font-size: 16px;
 }
 
 .type {
