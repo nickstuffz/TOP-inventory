@@ -9,7 +9,19 @@
 
   <body>
     <div id="bg-modal">
-      <div class="modal"></div>
+      <div class="modal">
+        <form action="/inventory/update" method="POST">
+          <label></label>
+          <input type="text" name="donut_name" value="Black Hole" required />
+          <!-- VARCHAR(255) UNIQUE NOT NULL -->
+
+          <input type="number" name="donut_quantity" value="42" required />
+          <!-- INT NOT NULL DEFAULT 1 -->
+
+          <textarea name="donut_description">description value</textarea>
+          <!-- TEXT -->
+        </form>
+      </div>
     </div>
     <div class="container-main">
       <div class="panel-inventory">
@@ -39,14 +51,13 @@
       </div>
       <div class="panel-elements">
         <div class="header-elements">
-          <button onClick="addElement()">Add Element</button>
           <h1>Donut Elements</h1>
         </div>
         <% locals.elements.forEach((element) => { %>
         <div>
           <div class="header-element">
             <button onClick="editElement('<%= element.category %>')">
-              Edit Element
+              Edit <%= element.category %>
             </button>
             <h2 class="element"><%= element.category %></h2>
           </div>
@@ -77,11 +88,6 @@
       openModal()
     }
 
-    function addElement() {
-      console.log("add element")
-      openModal()
-    }
-
     function editElement(element_category) {
       console.log(`edit element: ${element_category}`);
       openModal()
@@ -105,11 +111,11 @@
       bg_modal.removeEventListener("click", modalClick)
     }
 
-    function popDonutFormModal() {
+    function popModalInventory() {
 
     }
 
-    function popElementFormModal() {
+    function popModalElements() {
 
     }
   </script>

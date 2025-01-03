@@ -1,107 +1,31 @@
-Note: turn back on HTML script validation in settings.json after finishing
+- Re-style to mobile friendly
+- Onclick elements to show price
+- Maybe change description from TEXT to VARCHAR(with a size)
+
+
+Note: turn back on HTML script validation in settings.json after finishing this project
 
 Tables
 using formatter 
 https://sqlformat.darold.net/
 
-SubQuery version:
 
-SELECT
-  donut,
-  type,
-  shape,
-  filling,
-  toppings,
-  type_price + shape_price + COALESCE(filling_price, 0) + COALESCE(toppings_price, 0) AS total_price
-FROM (
-  SELECT
-    donuts.name AS donut,
-    types.name AS type,
-    types.price AS type_price,
-    shapes.name AS shape,
-    shapes.price AS shape_price,
-    fillings.name AS filling,
-    fillings.price AS filling_price,
-    ARRAY_AGG(toppings.name) FILTER (WHERE toppings.name IS NOT NULL) AS toppings,
-    SUM(toppings.price) AS toppings_price
-  FROM
-    donuts
-  LEFT JOIN types ON donuts.type_id = types.id
-  LEFT JOIN shapes ON donuts.shape_id = shapes.id
-  LEFT JOIN fillings ON donuts.filling_id = fillings.id
-  LEFT JOIN donut_toppings ON donuts.id = donut_toppings.donut_id
-  LEFT JOIN toppings ON donut_toppings.topping_id = toppings.id
-GROUP BY
-  donuts.id,
-  donuts.name,
-  types.name,
-  types.price,
-  shapes.name,
-  shapes.price,
-  fillings.name,
-  fillings.price
-ORDER BY
-  donuts.id) AS subquery;
+Add Donut
+- Donut Name
+- Donut Quantity
+- Donut Description
+- Donut Elements Select
 
-cGPT suggestion:
+Edit Donut
+- Donut Name
+- Donut Quantity
+- Donut Description
+- Donut Elements Select
 
-SELECT
-  donuts.name AS donut,
-  types.name AS type,
-  types.price AS typePrice,
-  shapes.name AS shape,
-  shapes.price AS shapePrice,
-  fillings.name AS filling,
-  COALESCE(fillings.price, 0) AS fillingPrice,
-  STRING_AGG(toppings.name, ', ') AS toppings,
-  COALESCE(SUM(toppings.price), 0) AS toppingPrice,
-  (types.price + shapes.price + COALESCE(fillings.price, 0) + COALESCE(SUM(toppings.price), 0)) AS totalPrice
-FROM
-  donuts
-  LEFT JOIN types ON donuts.type_id = types.id
-  LEFT JOIN shapes ON donuts.shape_id = shapes.id
-  LEFT JOIN fillings ON donuts.filling_id = fillings.id
-  LEFT JOIN donut_toppings ON donuts.id = donut_toppings.donut_id
-  LEFT JOIN toppings ON donut_toppings.topping_id = toppings.id
-GROUP BY
-  donuts.id,
-  donuts.name,
-  types.name,
-  types.price,
-  shapes.name,
-  shapes.price,
-  fillings.name,
-  fillings.price;
-
-Revision:
-
-SELECT
-  donuts.name AS name,
-  donuts.quantity as quantity,
-  donuts.description as description,
-  types.name AS type,
-  shapes.name AS shape,
-  fillings.name AS filling,
-  ARRAY_AGG(toppings.name) FILTER (WHERE toppings.name IS NOT NULL) AS toppings,
-  (types.price + shapes.price + COALESCE(fillings.price, 0) + COALESCE(SUM(toppings.price), 0)) AS price
-FROM
-  donuts
-  LEFT JOIN types ON donuts.type_id = types.id
-  LEFT JOIN shapes ON donuts.shape_id = shapes.id
-  LEFT JOIN fillings ON donuts.filling_id = fillings.id
-  LEFT JOIN donut_toppings ON donuts.id = donut_toppings.donut_id
-  LEFT JOIN toppings ON donut_toppings.topping_id = toppings.id
-GROUP BY
-  donuts.id,
-  donuts.name,
-  donuts.quantity,
-  donuts.description,
-  types.name,
-  types.price,
-  shapes.name,
-  shapes.price,
-  fillings.name,
-  fillings.price
-ORDER BY
-  donuts.id;
+Edit Element
+Add Element
+  - Element Name
+  - Element Price
+- Element Names
+- Element Prices
 
