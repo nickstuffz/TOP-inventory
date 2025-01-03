@@ -39,13 +39,15 @@
       </div>
       <div class="panel-elements">
         <div class="header-elements">
-          <button>Add Element</button>
+          <button onClick="addElement()">Add Element</button>
           <h1>Donut Elements</h1>
         </div>
         <% locals.elements.forEach((element) => { %>
         <div>
           <div class="header-element">
-            <button>Edit Element</button>
+            <button onClick="editElement('<%= element.category %>')">
+              Edit Element
+            </button>
             <h2 class="element"><%= element.category %></h2>
           </div>
           <% element.names.forEach((name) => { %>
@@ -60,10 +62,10 @@
   </body>
   <script>
     const inventory = <%- JSON.stringify(locals.inventory) %>;
+    const elements = <%- JSON.stringify(locals.elements) %>;
     const bg_modal = document.getElementById("bg-modal");
     console.log(inventory)
-
-
+    console.log(elements)
 
     function addDonut() {
       console.log("add donut");
@@ -75,6 +77,16 @@
       openModal()
     }
 
+    function addElement() {
+      console.log("add element")
+      openModal()
+    }
+
+    function editElement(element_category) {
+      console.log(`edit element: ${element_category}`);
+      openModal()
+    }
+
     function openModal() {
       console.log("openmodal")
       bg_modal.style.display = "block";
@@ -82,7 +94,7 @@
     }
 
     function modalClick(event) {
-      if (event.target===bg_modal) {
+      if (event.target === bg_modal) {
         closeModal()
       }
     }
@@ -91,6 +103,14 @@
       console.log("closemodal")
       bg_modal.style.display = "";
       bg_modal.removeEventListener("click", modalClick)
-      }
+    }
+
+    function popDonutFormModal() {
+
+    }
+
+    function popElementFormModal() {
+
+    }
   </script>
 </html>
