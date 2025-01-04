@@ -31,7 +31,7 @@ span {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  /* display: none; */
+  display: none;
 }
 
 .modal {
@@ -42,6 +42,12 @@ span {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
+}
+
+.form-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .container-main {

@@ -11,15 +11,35 @@
     <div id="bg-modal">
       <div class="modal">
         <form action="/inventory/update" method="POST">
-          <label></label>
-          <input type="text" name="donut_name" value="Black Hole" required />
-          <!-- VARCHAR(255) UNIQUE NOT NULL -->
+          <div class="form-modal">
+            <label for="donut_name">Donut Name</label>
+            <input
+              id="donut_name"
+              type="text"
+              name="donut_name"
+              value="Black Hole"
+              required
+            />
+            <!-- VARCHAR(255) UNIQUE NOT NULL -->
 
-          <input type="number" name="donut_quantity" value="42" required />
-          <!-- INT NOT NULL DEFAULT 1 -->
+            <label for="donut_quantity">Donut Quantity</label>
+            <input
+              id="donut_quantity"
+              type="number"
+              name="donut_quantity"
+              value="42"
+              required
+            />
+            <!-- INT NOT NULL DEFAULT 1 -->
 
-          <textarea name="donut_description">description value</textarea>
-          <!-- TEXT -->
+            <label for="donut_description">Description</label>
+            <textarea id="donut_description" name="donut_description">
+description value</textarea
+            >
+
+            <span>Elements</span>
+            <!-- TEXT -->
+          </div>
         </form>
       </div>
     </div>
@@ -76,42 +96,62 @@
     const elements = <%- JSON.stringify(locals.elements) %>;
     const bg_modal = document.getElementById("bg-modal");
     console.log(inventory)
+    console.log(typeof inventory)
     console.log(elements)
 
     function addDonut() {
-      console.log("add donut");
-      openModal()
+      console.log("addDonut");
+      openModal();
+      popModalInventory()
     }
 
     function editDonut(donut_id) {
-      console.log(`edit donut: ${donut_id}`);
-      openModal()
+      console.log(`editDonut: ${donut_id}`);
+      openModal();
+      popModalInventory(donut_id)
     }
 
     function editElement(element_category) {
-      console.log(`edit element: ${element_category}`);
+      console.log(`editElement: ${element_category}`);
       openModal()
     }
 
     function openModal() {
-      console.log("openmodal")
+      console.log("openModal")
       bg_modal.style.display = "block";
       bg_modal.addEventListener("click", modalClick)
     }
 
     function modalClick(event) {
+      console.log("modalClick")
       if (event.target === bg_modal) {
         closeModal()
       }
     }
 
     function closeModal() {
-      console.log("closemodal")
+      console.log("closeModal")
       bg_modal.style.display = "";
       bg_modal.removeEventListener("click", modalClick)
     }
 
-    function popModalInventory() {
+    function popModalInventory(donut_id = 0) {
+      console.log("popModalInventory")
+      if (donut_id === 0) {
+        return
+      }
+      console.log(inventory)
+      console.log(typeof donut_id)
+      const donut = inventory.find((donut) => donut.id === Number(donut_id))
+      const donutName = document.getElementById("donut_name")
+      const donutQuantity = document.getElementById("donut_quantity")
+      const donutDescription = document.getElementById("donut_description")
+      donutName.value = donut.name
+      donutQuantity.value = donut.quantity
+      donutDescription.textContent = donut.description
+
+
+      console.log(donut)
 
     }
 
