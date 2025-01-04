@@ -36,8 +36,7 @@
             <textarea id="donut_description" name="donut_description">
 description value</textarea
             >
-
-            <span>Elements</span>
+            <div id="donut_elements_cont"></div>
             <!-- TEXT -->
           </div>
         </form>
@@ -55,14 +54,16 @@ description value</textarea
             <h3 class="donut"><%= donut.name %></h3>
             <button onClick="editDonut('<%= donut.id %>')">Edit Donut</button>
           </div>
-          <span class="type"><%= donut.type %></span>
-          <span class="shape"><%= donut.shape %></span>
-          <% if (donut.filling !== null) { %>
-          <span class="filling"><%= donut.filling %></span>
-          <% } if (donut.toppings !== null) { %> <%
-          donut.toppings.forEach((topping) => { %>
-          <span class="topping"><%= topping %></span>
-          <% })} %>
+          <div id="<%= donut.id %>_elements">
+            <span class="type"><%= donut.type %></span>
+            <span class="shape"><%= donut.shape %></span>
+            <% if (donut.filling !== null) { %>
+            <span class="filling"><%= donut.filling %></span>
+            <% } if (donut.toppings !== null) { %> <%
+            donut.toppings.forEach((topping) => { %>
+            <span class="topping"><%= topping %></span>
+            <% })} %>
+          </div>
           <p>quantity: <%= donut.quantity %></p>
           <p>price: $<%= donut.price %></p>
           <i><%= donut.description %></i>
@@ -92,71 +93,81 @@ description value</textarea
     </div>
   </body>
   <script>
-    const inventory = <%- JSON.stringify(locals.inventory) %>;
-    const elements = <%- JSON.stringify(locals.elements) %>;
-    const bg_modal = document.getElementById("bg-modal");
-    console.log(inventory)
-    console.log(typeof inventory)
-    console.log(elements)
-
     function addDonut() {
       console.log("addDonut");
-      openModal();
-      popModalInventory()
+      modalModule.openModal();
+      // modalModule.popModalInventory();
     }
 
     function editDonut(donut_id) {
       console.log(`editDonut: ${donut_id}`);
-      openModal();
-      popModalInventory(donut_id)
+      modalModule.openModal();
+      modalModule.popModalInventory(donut_id);
     }
 
     function editElement(element_category) {
       console.log(`editElement: ${element_category}`);
-      openModal()
+      modalModule.openModal();
     }
 
-    function openModal() {
-      console.log("openModal")
-      bg_modal.style.display = "block";
-      bg_modal.addEventListener("click", modalClick)
-    }
+    const modalModule = (function () {
+      const inventory = <%- JSON.stringify(locals.inventory) %>;
+      const elements = <%- JSON.stringify(locals.elements) %>;
+      const bg_modal = document.getElementById("bg-modal");
+      console.log(inventory);
+      console.log(elements);
 
-    function modalClick(event) {
-      console.log("modalClick")
-      if (event.target === bg_modal) {
-        closeModal()
+      function openModal() {
+        console.log("openModal");
+        bg_modal.style.display = "block";
+        bg_modal.addEventListener("click", modalClick);
       }
-    }
 
-    function closeModal() {
-      console.log("closeModal")
-      bg_modal.style.display = "";
-      bg_modal.removeEventListener("click", modalClick)
-    }
-
-    function popModalInventory(donut_id = 0) {
-      console.log("popModalInventory")
-      if (donut_id === 0) {
-        return
+      function modalClick(event) {
+        console.log("modalClick");
+        if (event.target === bg_modal) {
+          closeModal();
+        }
       }
-      console.log(inventory)
-      console.log(typeof donut_id)
-      const donut = inventory.find((donut) => donut.id === Number(donut_id))
-      const donutName = document.getElementById("donut_name")
-      const donutQuantity = document.getElementById("donut_quantity")
-      const donutDescription = document.getElementById("donut_description")
-      donutName.value = donut.name
-      donutQuantity.value = donut.quantity
-      donutDescription.textContent = donut.description
+
+      function closeModal() {
+        console.log("closeModal");
+        bg_modal.style.display = "";
+        bg_modal.removeEventListener("click", modalClick);
+      }
+
+      function popModalInventory(donut_id = 0) {
+        console.log("popModalInventory");
+        if (donut_id === 0) {
+          return;
+        }
+        const donut = inventory.find((donut) => donut.id === Number(donut_id));
+        const donutName = document.getElementById("donut_name");
+        const donutQuantity = document.getElementById("donut_quantity");
+        const donutDescription = document.getElementById("donut_description");
+        const donutElementsContainer = document.getElementById("donut_elements_cont")
+        const originalDonutElements = document.getElementById(
+          `${donut_id}_elements`
+        );
+
+        donutName.value = donut.name;
+        donutQuantity.value = donut.quantity;
+        donutDescription.textContent = donut.description;
+        donutElements = originalDonutElements.cloneNode(true);
+        donutElementsContainer.replaceChildren();
+        donutElementsContainer.appendChild(donutElements);
+      }
+
+      return {
+        openModal,
+        modalClick,
+        closeModal,
+        popModalInventory
+      };
+    })();
 
 
-      console.log(donut)
 
-    }
-
-    function popModalElements() {
-
-    }
+    function popModalElements() {}
   </script>
 </html>
