@@ -15,7 +15,6 @@ button {
 }
 
 span {
-  display: inline-block;
   border-style: solid;
   border-width: 1px;
   padding: 4px;
@@ -72,6 +71,16 @@ span {
   display: flex;
   align-items: center;
   gap: 12px;
+  justify-content: end;
+}
+
+.elements-donut,
+.elements-element {
+  display: flex;
+  gap: 4px;
+}
+
+.elements-element {
   justify-content: end;
 }
 

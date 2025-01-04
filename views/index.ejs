@@ -36,7 +36,8 @@
             <textarea id="donut_description" name="donut_description">
 description value</textarea
             >
-            <div id="donut_elements_cont"></div>
+            <div id="donut_elements_cont" class="elements-donut"></div>
+            <button type="submit">Submit</button>
             <!-- TEXT -->
           </div>
         </form>
@@ -54,7 +55,7 @@ description value</textarea
             <h3 class="donut"><%= donut.name %></h3>
             <button onClick="editDonut('<%= donut.id %>')">Edit Donut</button>
           </div>
-          <div id="<%= donut.id %>_elements">
+          <div class="elements-donut">
             <span class="type"><%= donut.type %></span>
             <span class="shape"><%= donut.shape %></span>
             <% if (donut.filling !== null) { %>
@@ -82,11 +83,13 @@ description value</textarea
             </button>
             <h2 class="element"><%= element.category %></h2>
           </div>
-          <% element.names.forEach((name) => { %>
-          <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
-            ><%= name %>
-          </span>
-          <% }) %>
+          <div class="elements-element">
+            <% element.names.forEach((name) => { %>
+            <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
+              ><%= name %>
+            </span>
+            <% }) %>
+          </div>
         </div>
         <% }) %>
       </div>
@@ -114,8 +117,13 @@ description value</textarea
       const inventory = <%- JSON.stringify(locals.inventory) %>;
       const elements = <%- JSON.stringify(locals.elements) %>;
       const bg_modal = document.getElementById("bg-modal");
-      console.log(inventory);
-      console.log(elements);
+      // console.log(inventory);
+      // console.log(elements);
+
+      const donutName = document.getElementById("donut_name");
+        const donutQuantity = document.getElementById("donut_quantity");
+        const donutDescription = document.getElementById("donut_description");
+        const donutElementsContainer = document.getElementById("donut_elements_cont")
 
       function openModal() {
         console.log("openModal");
@@ -138,24 +146,56 @@ description value</textarea
 
       function popModalInventory(donut_id = 0) {
         console.log("popModalInventory");
+
         if (donut_id === 0) {
           return;
         }
-        const donut = inventory.find((donut) => donut.id === Number(donut_id));
-        const donutName = document.getElementById("donut_name");
-        const donutQuantity = document.getElementById("donut_quantity");
-        const donutDescription = document.getElementById("donut_description");
-        const donutElementsContainer = document.getElementById("donut_elements_cont")
+
         const originalDonutElements = document.getElementById(
           `${donut_id}_elements`
         );
 
+        const donut = inventory.find((donut) => donut.id === Number(donut_id));
+
+
         donutName.value = donut.name;
         donutQuantity.value = donut.quantity;
         donutDescription.textContent = donut.description;
-        donutElements = originalDonutElements.cloneNode(true);
+
+        // donut elements
         donutElementsContainer.replaceChildren();
-        donutElementsContainer.appendChild(donutElements);
+
+        const typeSpan = document.createElement('span');
+        typeSpan.classList.add('type')
+        typeSpan.textContent = donut.type;
+        donutElementsContainer.appendChild(typeSpan)
+
+        const shapeSpan = document.createElement('span');
+        shapeSpan.classList.add('shape')
+        shapeSpan.textContent = donut.shape;
+        donutElementsContainer.appendChild(shapeSpan)
+
+        if (donut.filling !== null) {
+          const fillingSpan = document.createElement('span');
+          fillingSpan.classList.add('filling')
+          fillingSpan.textContent = donut.filling;
+          donutElementsContainer.appendChild(fillingSpan)
+        }
+
+        if (donut.toppings !== null) {
+          donut.toppings.forEach((topping) => {
+            const toppingSpan = document.createElement('span');
+            toppingSpan.classList.add('topping')
+            toppingSpan.textContent = topping
+            donutElementsContainer.appendChild(toppingSpan)
+          })
+        }
+
+
+
+        // donutElements = originalDonutElements.cloneNode(true);
+        // donutElementsContainer.replaceChildren();
+        // donutElementsContainer.appendChild(donutElements);
       }
 
       return {
