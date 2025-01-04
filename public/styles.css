@@ -11,6 +11,7 @@ body {
 
 button {
   height: 18px;
+  width: fit-content;
   font-size: 12px;
 }
 

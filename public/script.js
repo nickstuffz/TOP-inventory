@@ -1,7 +1,7 @@
 function addDonut() {
   console.log("addDonut");
   modalModule.openModal();
-  // modalModule.popModalInventory();
+  modalModule.popModalInventory();
 }
 
 function editDonut(donut_id) {
@@ -19,49 +19,55 @@ const modalModule = (function () {
   const inventory = window.appData.inventory;
   const elements = window.appData.elements;
 
-  const bg_modal = document.getElementById("bg-modal");
-  const donutName = document.getElementById("donut_name");
-  const donutQuantity = document.getElementById("donut_quantity");
-  const donutDescription = document.getElementById("donut_description");
-  const donutElementsContainer = document.getElementById("donut_elements_cont");
+  const bgModal = document.getElementById("bg-modal");
+  const formModal = document.getElementById("form-modal");
+  const donutName = document.getElementById("name-donut");
+  const donutQuantity = document.getElementById("quantity-donut");
+  const donutDescription = document.getElementById("description-donut");
+  const donutElementsContainer = document.getElementById("elements-cont-donut");
 
   function openModal() {
     console.log("openModal");
-    bg_modal.style.display = "block";
-    bg_modal.addEventListener("click", modalClick);
+    bgModal.style.display = "block";
+    bgModal.addEventListener("click", modalClick);
   }
 
   function modalClick(event) {
     console.log("modalClick");
-    if (event.target === bg_modal) {
+    if (event.target === bgModal) {
       closeModal();
     }
   }
 
   function closeModal() {
     console.log("closeModal");
-    bg_modal.style.display = "";
-    bg_modal.removeEventListener("click", modalClick);
+    bgModal.style.display = "";
+    bgModal.removeEventListener("click", modalClick);
   }
 
   function popModalInventory(donut_id = 0) {
     console.log("popModalInventory");
 
+    // add donut flow
     if (donut_id === 0) {
+      formModal.action = "/inventory/add";
+
+      donutName.value = "";
+      donutQuantity.value = 1;
+      donutDescription.textContent = "";
+      donutElementsContainer.replaceChildren();
       return;
     }
 
-    const originalDonutElements = document.getElementById(
-      `${donut_id}_elements`
-    );
-
+    // edit donut flow
+    formModal.action = "/inventory/update";
     const donut = inventory.find((donut) => donut.id === Number(donut_id));
 
     donutName.value = donut.name;
     donutQuantity.value = donut.quantity;
     donutDescription.textContent = donut.description;
 
-    // donut elements
+    // - donut elements
     donutElementsContainer.replaceChildren();
 
     const typeSpan = document.createElement("span");

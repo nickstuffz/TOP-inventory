@@ -12,31 +12,31 @@
       <div class="modal">
         <form id="form-modal" action="/inventory/update" method="POST">
           <div class="container-modal">
-            <label for="donut_name">Donut Name</label>
+            <label for="name-donut">Donut Name</label>
             <input
-              id="donut_name"
+              id="name-donut"
               type="text"
-              name="donut_name"
+              name="name-donut"
               value="Black Hole"
               required
             />
             <!-- VARCHAR(255) UNIQUE NOT NULL -->
 
-            <label for="donut_quantity">Donut Quantity</label>
+            <label for="quantity-donut">Donut Quantity</label>
             <input
-              id="donut_quantity"
+              id="quantity-donut"
               type="number"
-              name="donut_quantity"
+              name="quantity-donut"
               value="42"
               required
             />
             <!-- INT NOT NULL DEFAULT 1 -->
 
-            <label for="donut_description">Description</label>
-            <textarea id="donut_description" name="donut_description">
+            <label for="description-donut">Description</label>
+            <textarea id="description-donut" name="description-donut">
 description value</textarea
             >
-            <div id="donut_elements_cont" class="elements-donut"></div>
+            <div id="elements-cont-donut" class="elements-donut"></div>
             <button type="submit">Submit</button>
             <!-- TEXT -->
           </div>
