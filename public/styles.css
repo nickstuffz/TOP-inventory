@@ -43,7 +43,7 @@ span {
   background-color: white;
 }
 
-.form-modal {
+.container-modal {
   display: flex;
   flex-direction: column;
   gap: 6px;

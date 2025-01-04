@@ -10,8 +10,8 @@
   <body>
     <div id="bg-modal">
       <div class="modal">
-        <form action="/inventory/update" method="POST">
-          <div class="form-modal">
+        <form id="form-modal" action="/inventory/update" method="POST">
+          <div class="container-modal">
             <label for="donut_name">Donut Name</label>
             <input
               id="donut_name"
@@ -96,118 +96,11 @@ description value</textarea
     </div>
   </body>
   <script>
-    function addDonut() {
-      console.log("addDonut");
-      modalModule.openModal();
-      // modalModule.popModalInventory();
+    window.appData = {
+      inventory: <%- JSON.stringify(locals.inventory) %>,
+      elements: <%- JSON.stringify(locals.elements) %>
     }
-
-    function editDonut(donut_id) {
-      console.log(`editDonut: ${donut_id}`);
-      modalModule.openModal();
-      modalModule.popModalInventory(donut_id);
-    }
-
-    function editElement(element_category) {
-      console.log(`editElement: ${element_category}`);
-      modalModule.openModal();
-    }
-
-    const modalModule = (function () {
-      const inventory = <%- JSON.stringify(locals.inventory) %>;
-      const elements = <%- JSON.stringify(locals.elements) %>;
-      const bg_modal = document.getElementById("bg-modal");
-      // console.log(inventory);
-      // console.log(elements);
-
-      const donutName = document.getElementById("donut_name");
-        const donutQuantity = document.getElementById("donut_quantity");
-        const donutDescription = document.getElementById("donut_description");
-        const donutElementsContainer = document.getElementById("donut_elements_cont")
-
-      function openModal() {
-        console.log("openModal");
-        bg_modal.style.display = "block";
-        bg_modal.addEventListener("click", modalClick);
-      }
-
-      function modalClick(event) {
-        console.log("modalClick");
-        if (event.target === bg_modal) {
-          closeModal();
-        }
-      }
-
-      function closeModal() {
-        console.log("closeModal");
-        bg_modal.style.display = "";
-        bg_modal.removeEventListener("click", modalClick);
-      }
-
-      function popModalInventory(donut_id = 0) {
-        console.log("popModalInventory");
-
-        if (donut_id === 0) {
-          return;
-        }
-
-        const originalDonutElements = document.getElementById(
-          `${donut_id}_elements`
-        );
-
-        const donut = inventory.find((donut) => donut.id === Number(donut_id));
-
-
-        donutName.value = donut.name;
-        donutQuantity.value = donut.quantity;
-        donutDescription.textContent = donut.description;
-
-        // donut elements
-        donutElementsContainer.replaceChildren();
-
-        const typeSpan = document.createElement('span');
-        typeSpan.classList.add('type')
-        typeSpan.textContent = donut.type;
-        donutElementsContainer.appendChild(typeSpan)
-
-        const shapeSpan = document.createElement('span');
-        shapeSpan.classList.add('shape')
-        shapeSpan.textContent = donut.shape;
-        donutElementsContainer.appendChild(shapeSpan)
-
-        if (donut.filling !== null) {
-          const fillingSpan = document.createElement('span');
-          fillingSpan.classList.add('filling')
-          fillingSpan.textContent = donut.filling;
-          donutElementsContainer.appendChild(fillingSpan)
-        }
-
-        if (donut.toppings !== null) {
-          donut.toppings.forEach((topping) => {
-            const toppingSpan = document.createElement('span');
-            toppingSpan.classList.add('topping')
-            toppingSpan.textContent = topping
-            donutElementsContainer.appendChild(toppingSpan)
-          })
-        }
-
-
-
-        // donutElements = originalDonutElements.cloneNode(true);
-        // donutElementsContainer.replaceChildren();
-        // donutElementsContainer.appendChild(donutElements);
-      }
-
-      return {
-        openModal,
-        modalClick,
-        closeModal,
-        popModalInventory
-      };
-    })();
-
-
-
-    function popModalElements() {}
+    console.log(window.appData)
   </script>
+  <script src="../public/script.js"></script>
 </html>
