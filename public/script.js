@@ -1,13 +1,13 @@
 function addDonut() {
   console.log("addDonut");
   modalModule.openModal();
-  modalModule.popModalInventory();
+  modalModule.populateModal();
 }
 
 function editDonut(donut_id) {
   console.log(`editDonut: ${donut_id}`);
   modalModule.openModal();
-  modalModule.popModalInventory(donut_id);
+  modalModule.populateModal(donut_id);
 }
 
 function editElement(element_category) {
@@ -21,6 +21,7 @@ const modalModule = (function () {
 
   const bgModal = document.getElementById("bg-modal");
   const formModal = document.getElementById("form-modal");
+  const titleModal = document.getElementById("title-form");
   const donutName = document.getElementById("name-donut");
   const donutQuantity = document.getElementById("quantity-donut");
   const donutDescription = document.getElementById("description-donut");
@@ -45,13 +46,13 @@ const modalModule = (function () {
     bgModal.removeEventListener("click", modalClick);
   }
 
-  function popModalInventory(donut_id = 0) {
-    console.log("popModalInventory");
+  function populateModal(donut_id = 0) {
+    console.log("populateModal");
 
     // add donut flow
     if (donut_id === 0) {
       formModal.action = "/inventory/add";
-
+      titleModal.textContent = "New Donut";
       donutName.value = "";
       donutQuantity.value = 1;
       donutDescription.textContent = "";
@@ -61,6 +62,8 @@ const modalModule = (function () {
 
     // edit donut flow
     formModal.action = "/inventory/update";
+    titleModal.textContent = "Edit Donut";
+
     const donut = inventory.find((donut) => donut.id === Number(donut_id));
 
     donutName.value = donut.name;
@@ -101,6 +104,6 @@ const modalModule = (function () {
     openModal,
     modalClick,
     closeModal,
-    popModalInventory,
+    populateModal,
   };
 })();

@@ -15,6 +15,10 @@ button {
   font-size: 12px;
 }
 
+textarea {
+  resize: none;
+}
+
 span {
   border-style: solid;
   border-width: 1px;
@@ -37,17 +41,23 @@ span {
 .modal {
   position: fixed;
   width: 500px;
-  height: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
+  padding: 12px 12px 12px 12px;
 }
 
 .container-modal {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
+}
+
+.title-cont-form,
+.submit-cont-form {
+  display: flex;
+  justify-content: end;
 }
 
 .container-main {
@@ -57,7 +67,7 @@ span {
 
 .panel-inventory,
 .panel-elements {
-  border-style: solid;
+  border-style: none;
 }
 
 .header-inventory,

@@ -11,8 +11,11 @@
     <div id="bg-modal">
       <div class="modal">
         <form id="form-modal" action="/inventory/update" method="POST">
+          <div class="title-cont-form">
+            <h2 id="title-form"></h2>
+          </div>
           <div class="container-modal">
-            <label for="name-donut">Donut Name</label>
+            <label for="name-donut">Name: </label>
             <input
               id="name-donut"
               type="text"
@@ -22,7 +25,7 @@
             />
             <!-- VARCHAR(255) UNIQUE NOT NULL -->
 
-            <label for="quantity-donut">Donut Quantity</label>
+            <label for="quantity-donut">Quantity: </label>
             <input
               id="quantity-donut"
               type="number"
@@ -32,12 +35,15 @@
             />
             <!-- INT NOT NULL DEFAULT 1 -->
 
-            <label for="description-donut">Description</label>
-            <textarea id="description-donut" name="description-donut">
-description value</textarea
-            >
+            <label for="description-donut">Description: </label>
+            <textarea
+              id="description-donut"
+              name="description-donut"
+            ></textarea>
             <div id="elements-cont-donut" class="elements-donut"></div>
-            <button type="submit">Submit</button>
+            <div class="submit-cont-form">
+              <button type="submit">Submit</button>
+            </div>
             <!-- TEXT -->
           </div>
         </form>
