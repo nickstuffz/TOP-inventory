@@ -55,7 +55,7 @@ const modalModule = (function () {
       titleModal.textContent = "New Donut";
       donutName.value = "";
       donutQuantity.value = 1;
-      donutDescription.textContent = "";
+      donutDescription.value = "";
       donutElementsContainer.replaceChildren();
       return;
     }
@@ -68,7 +68,7 @@ const modalModule = (function () {
 
     donutName.value = donut.name;
     donutQuantity.value = donut.quantity;
-    donutDescription.textContent = donut.description;
+    donutDescription.value = donut.description;
 
     // - donut elements
     donutElementsContainer.replaceChildren();
