@@ -6,4 +6,11 @@ async function indexGet(req, res) {
   res.render("index", { inventory: inventory, elements: elements });
 }
 
-module.exports = { indexGet };
+async function donutAddPost(req, res) {
+  res.send("Added Donut");
+}
+
+async function donutEditPost(req, res) {
+  res.send("Edited Donut");
+}
+module.exports = { indexGet, donutAddPost, donutEditPost };
