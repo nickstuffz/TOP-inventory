@@ -20,9 +20,22 @@ textarea {
 }
 
 span {
-  min-width: 24px;
+  height: 28px;
+  min-width: 28px;
+  display: flex;
+  justify-content: center;
   border-style: solid;
   border-width: 1px;
+  padding: 4px;
+  font-size: 16px;
+  margin: 0;
+}
+
+#add-element-donut {
+  height: 28px;
+  min-width: 28px;
+  display: flex;
+  justify-content: center;
   padding: 4px;
   font-size: 16px;
   margin: 0;
@@ -72,22 +85,23 @@ span {
 }
 
 .header-inventory,
-.header-donut {
+.donut-header {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 .header-elements,
-.header-element {
+.element-header {
   display: flex;
   align-items: center;
   gap: 12px;
   justify-content: end;
 }
 
-.elements-donut,
-.elements-element {
+.donut-elements-cont,
+.elements-cont-donut,
+.element-cont-elements {
   display: flex;
   gap: 4px;
 }

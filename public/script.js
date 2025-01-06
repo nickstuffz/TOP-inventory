@@ -46,6 +46,10 @@ const modalModule = (function () {
     bgModal.removeEventListener("click", modalClick);
   }
 
+  function addDonutElement() {
+    console.log("addDonutElement");
+  }
+
   function populateModal(donut_id = 0) {
     console.log("populateModal");
 

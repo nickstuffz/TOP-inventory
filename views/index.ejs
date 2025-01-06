@@ -10,12 +10,12 @@
   <body>
     <div id="bg-modal">
       <div class="modal">
-        <form id="form-modal" action="/inventory/update" method="POST">
+        <form id="form-modal" action="#" method="POST">
           <div class="title-cont-form">
             <h2 id="title-form"></h2>
           </div>
           <div class="container-modal">
-            <label for="name-donut">Name: </label>
+            <label for="name-donut">Name:</label>
             <input
               id="name-donut"
               type="text"
@@ -25,7 +25,7 @@
             />
             <!-- VARCHAR(255) UNIQUE NOT NULL -->
 
-            <label for="quantity-donut">Quantity: </label>
+            <label for="quantity-donut">Quantity:</label>
             <input
               id="quantity-donut"
               type="number"
@@ -35,16 +35,25 @@
             />
             <!-- INT NOT NULL DEFAULT 1 -->
 
-            <label for="description-donut">Description: </label>
+            <label for="description-donut">Description:</label>
             <textarea
               id="description-donut"
               name="description-donut"
             ></textarea>
-            <label>Elements: </label>
-
-            <div id="elements-cont-donut" class="elements-donut">
-              <span id="add-element-donut">+</span>
+            <legend>Elements:</legend>
+            <div id="elements-cont-donut" class="elements-cont-donut">
+              <button
+                onClick="addDonutElement()"
+                type="button"
+                id="add-element-donut"
+              >
+                +
+              </button>
             </div>
+            <div id="menu-elements-cont-donut">
+              <legend>All Elements:</legend>
+            </div>
+
             <div class="submit-cont-form">
               <button type="submit">Submit</button>
             </div>
@@ -61,11 +70,11 @@
         </div>
         <% locals.inventory.forEach((donut) => { %>
         <div>
-          <div class="header-donut">
+          <div class="donut-header">
             <h3 class="donut"><%= donut.name %></h3>
             <button onClick="editDonut('<%= donut.id %>')">Edit Donut</button>
           </div>
-          <div class="elements-donut">
+          <div class="donut-elements-cont">
             <span class="type"><%= donut.type %></span>
             <span class="shape"><%= donut.shape %></span>
             <% if (donut.filling !== null) { %>
@@ -87,13 +96,13 @@
         </div>
         <% locals.elements.forEach((element) => { %>
         <div>
-          <div class="header-element">
+          <div class="element-header">
             <button onClick="editElement('<%= element.category %>')">
               Edit <%= element.category %>
             </button>
             <h2 class="element"><%= element.category %></h2>
           </div>
-          <div class="elements-element">
+          <div class="element-cont-elements">
             <% element.names.forEach((name) => { %>
             <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
               ><%= name %>
