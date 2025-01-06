@@ -1,3 +1,4 @@
+- Need to get elements selector on both Add and Edit donut
 - Re-style to mobile friendly
 - Onclick elements to show price
 - Maybe change description from TEXT to VARCHAR(with a size)

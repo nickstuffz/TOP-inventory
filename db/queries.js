@@ -12,12 +12,12 @@ SELECT
   ARRAY_AGG(toppings.name) FILTER (WHERE toppings.name IS NOT NULL) AS toppings,
   (types.price + shapes.price + COALESCE(fillings.price, 0) + COALESCE(SUM(toppings.price), 0)) AS price
 FROM
-  donuts
-  LEFT JOIN types ON donuts.type_id = types.id
-  LEFT JOIN shapes ON donuts.shape_id = shapes.id
-  LEFT JOIN fillings ON donuts.filling_id = fillings.id
-  LEFT JOIN donut_toppings ON donuts.id = donut_toppings.donut_id
-  LEFT JOIN toppings ON donut_toppings.topping_id = toppings.id
+  Donuts
+  LEFT JOIN Types ON donuts.type_id = types.id
+  LEFT JOIN Shapes ON donuts.shape_id = shapes.id
+  LEFT JOIN Fillings ON donuts.filling_id = fillings.id
+  LEFT JOIN Donut_toppings ON donuts.id = donut_toppings.donut_id
+  LEFT JOIN Toppings ON donut_toppings.topping_id = toppings.id
 GROUP BY
   donuts.id,
   donuts.name,
@@ -38,35 +38,40 @@ SELECT
   'Types' AS category,
   ARRAY_AGG(name) AS names
 FROM
-  types
+  Types
 UNION ALL
 SELECT
   'Shapes',
   ARRAY_AGG(name)
 FROM
-  shapes
+  Shapes
 UNION ALL
 SELECT
   'Fillings',
   ARRAY_AGG(name)
 FROM
-  fillings
+  Fillings
 UNION ALL
 SELECT
   'Toppings',
   ARRAY_AGG(name)
 FROM
-  toppings
+  Toppings
 `;
 
 async function getInventory() {
   const { rows } = await pool.query(getInventorySQL);
+  console.log(rows);
   return rows;
 }
 
 async function getElements() {
   const { rows } = await pool.query(getElementsSQL);
   return rows;
+}
+
+async function addDonut() {
+  // await pool.query("INSERT INTO Donuts (name,quantity,description,type,shape,filling,toppings)");
 }
 
 module.exports = { getInventory, getElements };

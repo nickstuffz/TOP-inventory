@@ -6,11 +6,13 @@ async function indexGet(req, res) {
   res.render("index", { inventory: inventory, elements: elements });
 }
 
-async function donutAddPost(req, res) {
-  res.send("Added Donut");
+async function donutAddDonutPost(req, res) {
+  console.log(req.body);
+  await db.addDonut();
+  res.redirect("/");
 }
 
-async function donutEditPost(req, res) {
+async function donutEditDonutPost(req, res) {
   res.send("Edited Donut");
 }
-module.exports = { indexGet, donutAddPost, donutEditPost };
+module.exports = { indexGet, donutAddDonutPost, donutEditDonutPost };

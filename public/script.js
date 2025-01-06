@@ -56,7 +56,9 @@ const modalModule = (function () {
       donutName.value = "";
       donutQuantity.value = 1;
       donutDescription.value = "";
-      donutElementsContainer.replaceChildren();
+      donutElementsContainer.replaceChildren(
+        donutElementsContainer.firstElementChild
+      );
       return;
     }
 
@@ -71,7 +73,9 @@ const modalModule = (function () {
     donutDescription.value = donut.description;
 
     // - donut elements
-    donutElementsContainer.replaceChildren();
+    donutElementsContainer.replaceChildren(
+      donutElementsContainer.firstElementChild
+    );
 
     const typeSpan = document.createElement("span");
     typeSpan.classList.add("type");
