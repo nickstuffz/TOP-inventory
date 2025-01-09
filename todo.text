@@ -1,15 +1,16 @@
+- Refactor JS for elements into a loop of some sort
+- Implement function for finding donut elements NOT included already
+
 - Need to get elements selector on both Add and Edit donut
 - Re-style to mobile friendly
 - Onclick elements to show price
 - Maybe change description from TEXT to VARCHAR(with a size)
 
-
 Note: turn back on HTML script validation in settings.json after finishing this project
 
 Tables
-using formatter 
+using formatter
 https://sqlformat.darold.net/
-
 
 Add Donut
 - Donut Name
@@ -29,4 +30,3 @@ Add Element
   - Element Price
 - Element Names
 - Element Prices
-

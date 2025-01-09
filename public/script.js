@@ -1,18 +1,22 @@
-function addDonut() {
-  console.log("addDonut");
+function addDonutClick() {
+  console.log("addDonutClick");
   modalModule.openModal();
   modalModule.populateModal();
 }
 
-function editDonut(donut_id) {
-  console.log(`editDonut: ${donut_id}`);
+function editDonutClick(donut_id) {
+  console.log(`editDonutClick: ${donut_id}`);
   modalModule.openModal();
   modalModule.populateModal(donut_id);
 }
 
-function editElement(element_category) {
-  console.log(`editElement: ${element_category}`);
+function editElementClick(element_category) {
+  console.log(`editElementClick: ${element_category}`);
   modalModule.openModal();
+}
+
+function addDonutElementClick(donut_id) {
+  console.log(`addDonutElementClick: ${donut_id}`);
 }
 
 const modalModule = (function () {
@@ -46,12 +50,9 @@ const modalModule = (function () {
     bgModal.removeEventListener("click", modalClick);
   }
 
-  function addDonutElement() {
-    console.log("addDonutElement");
-  }
-
   function populateModal(donut_id = 0) {
     console.log("populateModal");
+    const donut = inventory.find((donut) => donut.id === Number(donut_id));
 
     // add donut flow
     if (donut_id === 0) {
@@ -63,48 +64,68 @@ const modalModule = (function () {
       donutElementsContainer.replaceChildren(
         donutElementsContainer.firstElementChild
       );
-      return;
-    }
+    } else {
+      // edit donut flow
+      formModal.action = "/inventory/update";
+      titleModal.textContent = "Edit Donut";
 
-    // edit donut flow
-    formModal.action = "/inventory/update";
-    titleModal.textContent = "Edit Donut";
+      donutName.value = donut.name;
+      donutQuantity.value = donut.quantity;
+      donutDescription.value = donut.description;
 
-    const donut = inventory.find((donut) => donut.id === Number(donut_id));
+      // - donut elements
+      donutElementsContainer.replaceChildren(
+        donutElementsContainer.firstElementChild
+      );
 
-    donutName.value = donut.name;
-    donutQuantity.value = donut.quantity;
-    donutDescription.value = donut.description;
+      const typeSpan = document.createElement("span");
+      typeSpan.classList.add("type");
+      typeSpan.textContent = donut.types;
+      donutElementsContainer.appendChild(typeSpan);
 
-    // - donut elements
-    donutElementsContainer.replaceChildren(
-      donutElementsContainer.firstElementChild
-    );
+      const shapeSpan = document.createElement("span");
+      shapeSpan.classList.add("shape");
+      shapeSpan.textContent = donut.shapes;
+      donutElementsContainer.appendChild(shapeSpan);
 
-    const typeSpan = document.createElement("span");
-    typeSpan.classList.add("type");
-    typeSpan.textContent = donut.type;
-    donutElementsContainer.appendChild(typeSpan);
+      if (donut.fillings !== null) {
+        const fillingSpan = document.createElement("span");
+        fillingSpan.classList.add("filling");
+        fillingSpan.textContent = donut.fillings;
+        donutElementsContainer.appendChild(fillingSpan);
+      }
 
-    const shapeSpan = document.createElement("span");
-    shapeSpan.classList.add("shape");
-    shapeSpan.textContent = donut.shape;
-    donutElementsContainer.appendChild(shapeSpan);
+      if (donut.toppings !== null) {
+        donut.toppings.forEach((topping) => {
+          const toppingSpan = document.createElement("span");
+          toppingSpan.classList.add("topping");
+          toppingSpan.textContent = topping;
+          donutElementsContainer.appendChild(toppingSpan);
+        });
+      }
 
-    if (donut.filling !== null) {
-      const fillingSpan = document.createElement("span");
-      fillingSpan.classList.add("filling");
-      fillingSpan.textContent = donut.filling;
-      donutElementsContainer.appendChild(fillingSpan);
-    }
+      // other available donut elements
 
-    if (donut.toppings !== null) {
-      donut.toppings.forEach((topping) => {
-        const toppingSpan = document.createElement("span");
-        toppingSpan.classList.add("topping");
-        toppingSpan.textContent = topping;
-        donutElementsContainer.appendChild(toppingSpan);
+      const missingElements = elements.map((element) => {
+        let missingElementNames;
+
+        if (Array.isArray(donut[element.category.toLowerCase()])) {
+          missingElementNames = element.names.filter(
+            (name) => !donut[element.category.toLowerCase()].includes(name)
+          );
+        } else {
+          missingElementNames = element.names.filter(
+            (name) => name !== donut[element.category.toLowerCase()]
+          );
+        }
+        return {
+          category: element.category,
+          names: missingElementNames,
+        };
       });
+
+      // TODO populate using missingElements
+      console.log(missingElements);
     }
   }
 

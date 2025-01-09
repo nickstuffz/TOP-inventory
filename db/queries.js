@@ -6,9 +6,9 @@ SELECT
   donuts.name AS name,
   donuts.quantity as quantity,
   donuts.description as description,
-  types.name AS type,
-  shapes.name AS shape,
-  fillings.name AS filling,
+  types.name AS types,
+  shapes.name AS shapes,
+  fillings.name AS fillings,
   ARRAY_AGG(toppings.name) FILTER (WHERE toppings.name IS NOT NULL) AS toppings,
   (types.price + shapes.price + COALESCE(fillings.price, 0) + COALESCE(SUM(toppings.price), 0)) AS price
 FROM
@@ -61,7 +61,6 @@ FROM
 
 async function getInventory() {
   const { rows } = await pool.query(getInventorySQL);
-  console.log(rows);
   return rows;
 }
 

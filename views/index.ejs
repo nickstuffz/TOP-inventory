@@ -43,7 +43,7 @@
             <legend>Elements:</legend>
             <div id="elements-cont-donut" class="elements-cont-donut">
               <button
-                onClick="addDonutElement()"
+                onClick="addDonutElementClick()"
                 type="button"
                 id="add-element-donut"
               >
@@ -66,19 +66,21 @@
       <div class="panel-inventory">
         <div class="header-inventory">
           <h1>Donut Inventory</h1>
-          <button onClick="addDonut()">Add Donut</button>
+          <button onClick="addDonutClick()">Add Donut</button>
         </div>
         <% locals.inventory.forEach((donut) => { %>
         <div>
           <div class="donut-header">
             <h3 class="donut"><%= donut.name %></h3>
-            <button onClick="editDonut('<%= donut.id %>')">Edit Donut</button>
+            <button onClick="editDonutClick('<%= donut.id %>')">
+              Edit Donut
+            </button>
           </div>
           <div class="donut-elements-cont">
-            <span class="type"><%= donut.type %></span>
-            <span class="shape"><%= donut.shape %></span>
-            <% if (donut.filling !== null) { %>
-            <span class="filling"><%= donut.filling %></span>
+            <span class="type"><%= donut.types %></span>
+            <span class="shape"><%= donut.shapes %></span>
+            <% if (donut.fillings !== null) { %>
+            <span class="filling"><%= donut.fillings %></span>
             <% } if (donut.toppings !== null) { %> <%
             donut.toppings.forEach((topping) => { %>
             <span class="topping"><%= topping %></span>
@@ -97,7 +99,7 @@
         <% locals.elements.forEach((element) => { %>
         <div>
           <div class="element-header">
-            <button onClick="editElement('<%= element.category %>')">
+            <button onClick="editElementClick('<%= element.category %>')">
               Edit <%= element.category %>
             </button>
             <h2 class="element"><%= element.category %></h2>
