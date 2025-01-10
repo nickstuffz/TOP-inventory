@@ -55,6 +55,7 @@ const modalModule = (function () {
   }
 
   function renderElements(set, container) {
+    console.log(`renderElements: ${set}`);
     set.forEach((elementCat) => {
       if (elementCat.names.length) {
         elementCat.names.forEach((element) => {
@@ -67,24 +68,29 @@ const modalModule = (function () {
     });
   }
 
+  function clearContainers() {
+    donutElementsContainer.replaceChildren(
+      donutElementsContainer.firstElementChild
+    );
+    missingElementsContainer.replaceChildren();
+  }
+
   function populateModal(donut_id) {
     console.log("populateModal");
 
     // add donut flow
     if (donut_id === "add") {
+      clearContainers();
+
       formModal.action = "/inventory/add";
       titleModal.textContent = "New Donut";
       donutName.value = "";
       donutQuantity.value = 1;
       donutDescription.value = "";
-      donutElementsContainer.replaceChildren(
-        donutElementsContainer.firstElementChild
-      );
+      renderElements(elements, missingElementsContainer);
     } else {
       // edit donut flow
       const donut = inventory.find((donut) => donut.id === Number(donut_id));
-
-      // donut details
       formModal.action = "/inventory/update";
       titleModal.textContent = "Edit Donut";
       donutName.value = donut.name;
@@ -92,9 +98,7 @@ const modalModule = (function () {
       donutDescription.value = donut.description;
 
       // - donut elements
-      donutElementsContainer.replaceChildren(
-        donutElementsContainer.firstElementChild
-      );
+      clearContainers();
 
       const donutElements = elementCategories.map((category) => {
         return {
@@ -105,7 +109,7 @@ const modalModule = (function () {
 
       renderElements(donutElements, donutElementsContainer);
 
-      // other available donut elements
+      // menu elements
 
       const missingElements = elements.map((element) => {
         let missingElementNames;

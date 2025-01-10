@@ -1,7 +1,4 @@
-- Refactor JS for elements into a loop of some sort
-- Implement function for finding donut elements NOT included already
-
-- Need to get elements selector on both Add and Edit donut
+- rename CSS classes, it's currently a mess
 - Re-style to mobile friendly
 - Onclick elements to show price
 - Maybe change description from TEXT to VARCHAR(with a size)
@@ -11,34 +8,3 @@ Note: turn back on HTML script validation in settings.json after finishing this 
 Tables
 using formatter
 https://sqlformat.darold.net/
-
-Add Donut
-- Donut Name
-- Donut Quantity
-- Donut Description
-- Donut Elements Select
-
-Edit Donut
-- Donut Name
-- Donut Quantity
-- Donut Description
-- Donut Elements Select
-
-Edit Element
-Add Element
-  - Element Name
-  - Element Price
-- Element Names
-- Element Prices
-
-
-saev for later
-
-            <span class="type"><%= donut.types %></span>
-            <span class="shape"><%= donut.shapes %></span>
-            <% if (donut.fillings !== null) { %>
-            <span class="filling"><%= donut.fillings %></span>
-            <% } if (donut.toppings !== null) { %> <%
-            donut.toppings.forEach((topping) => { %>
-            <span class="topping"><%= topping %></span>
-            <% })} %>
