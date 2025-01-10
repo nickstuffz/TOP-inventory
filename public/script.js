@@ -78,6 +78,15 @@ const modalModule = (function () {
         donutElementsContainer.firstElementChild
       );
 
+      const donutElements = elements.map((element) => {
+        return {
+          category: element.category,
+          names: donut[element.category.toLowerCase()],
+        };
+      });
+      console.log(donutElements);
+
+      // REPLACE BLOCK START
       const typeSpan = document.createElement("span");
       typeSpan.classList.add("type");
       typeSpan.textContent = donut.types;
@@ -103,6 +112,7 @@ const modalModule = (function () {
           donutElementsContainer.appendChild(toppingSpan);
         });
       }
+      // REPLACE BLOCK END
 
       // other available donut elements
 

@@ -77,14 +77,10 @@
             </button>
           </div>
           <div class="donut-elements-cont">
-            <span class="type"><%= donut.types %></span>
-            <span class="shape"><%= donut.shapes %></span>
-            <% if (donut.fillings !== null) { %>
-            <span class="filling"><%= donut.fillings %></span>
-            <% } if (donut.toppings !== null) { %> <%
-            donut.toppings.forEach((topping) => { %>
-            <span class="topping"><%= topping %></span>
-            <% })} %>
+            <% locals.elementCategories.forEach((category) => { %> <%
+            donut[category].forEach((element) => { %>
+            <span class="<%= category.slice(0,-1) %>"><%= element %></span>
+            <%})%> <%})%>
           </div>
           <p>quantity: <%= donut.quantity %></p>
           <p>price: $<%= donut.price %></p>

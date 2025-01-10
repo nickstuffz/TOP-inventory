@@ -30,3 +30,15 @@ Add Element
   - Element Price
 - Element Names
 - Element Prices
+
+
+saev for later
+
+            <span class="type"><%= donut.types %></span>
+            <span class="shape"><%= donut.shapes %></span>
+            <% if (donut.fillings !== null) { %>
+            <span class="filling"><%= donut.fillings %></span>
+            <% } if (donut.toppings !== null) { %> <%
+            donut.toppings.forEach((topping) => { %>
+            <span class="topping"><%= topping %></span>
+            <% })} %>
