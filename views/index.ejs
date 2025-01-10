@@ -23,8 +23,6 @@
               value="Black Hole"
               required
             />
-            <!-- VARCHAR(255) UNIQUE NOT NULL -->
-
             <label for="quantity-donut">Quantity:</label>
             <input
               id="quantity-donut"
@@ -33,8 +31,6 @@
               value="42"
               required
             />
-            <!-- INT NOT NULL DEFAULT 1 -->
-
             <label for="description-donut">Description:</label>
             <textarea
               id="description-donut"
@@ -50,14 +46,15 @@
                 +
               </button>
             </div>
-            <div id="menu-elements-cont-donut">
-              <legend>All Elements:</legend>
-            </div>
+            <legend>All Elements:</legend>
+            <div
+              id="menu-elements-cont-donut"
+              class="menu-elements-cont-donut"
+            ></div>
 
             <div class="submit-cont-form">
               <button type="submit">Submit</button>
             </div>
-            <!-- TEXT -->
           </div>
         </form>
       </div>
@@ -92,17 +89,17 @@
         <div class="header-elements">
           <h1>Donut Elements</h1>
         </div>
-        <% locals.elements.forEach((element) => { %>
+        <% locals.elements.forEach((elementCat) => { %>
         <div>
           <div class="element-header">
-            <button onClick="editElementClick('<%= element.category %>')">
-              Edit <%= element.category %>
+            <button onClick="editElementClick('<%= elementCat.category %>')">
+              Edit <%= elementCat.category %>
             </button>
-            <h2 class="element"><%= element.category %></h2>
+            <h2 class="element"><%= elementCat.category %></h2>
           </div>
           <div class="element-cont-elements">
-            <% element.names.forEach((name) => { %>
-            <span class="<%= element.category.toLowerCase().slice(0,-1) %>"
+            <% elementCat.names.forEach((name) => { %>
+            <span class="<%= elementCat.category.slice(0,-1) %>"
               ><%= name %>
             </span>
             <% }) %>
@@ -115,7 +112,8 @@
   <script>
     window.appData = {
       inventory: <%- JSON.stringify(locals.inventory) %>,
-      elements: <%- JSON.stringify(locals.elements) %>
+      elements: <%- JSON.stringify(locals.elements) %>,
+      elementCategories: <%- JSON.stringify(locals.elementCategories) %>
     }
     console.log(window.appData)
   </script>

@@ -7,15 +7,16 @@ function normalizeToArray(data) {
 }
 
 async function indexGet(req, res) {
-  const elementCategories = ["types", "shapes", "fillings", "toppings"];
-
   const inventoryRaw = await db.getInventory();
   const elementsRaw = await db.getElements();
+
+  const elementCategories = elementsRaw.map((element) => {
+    return element.category;
+  });
 
   const inventory = inventoryRaw.map((donut) => {
     const donutElements = elementCategories.reduce((acc, category) => {
       acc[category] = normalizeToArray(donut[category]);
-
       return acc;
     }, {});
     return {
@@ -24,13 +25,9 @@ async function indexGet(req, res) {
     };
   });
 
-  console.log(inventory);
-
   const elements = elementsRaw.map((element) => {
     return { ...element, names: normalizeToArray(element.names) };
   });
-
-  console.log(elements);
 
   res.render("index", {
     inventory: inventory,

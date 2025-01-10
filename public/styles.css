@@ -100,7 +100,8 @@ span {
 
 .donut-elements-cont,
 .elements-cont-donut,
-.element-cont-elements {
+.element-cont-elements,
+.menu-elements-cont-donut {
   display: flex;
   gap: 4px;
 }

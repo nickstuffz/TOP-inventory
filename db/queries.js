@@ -35,25 +35,25 @@ ORDER BY
 
 const getElementsSQL = `
 SELECT
-  'Types' AS category,
+  'types' AS category,
   ARRAY_AGG(name) AS names
 FROM
   Types
 UNION ALL
 SELECT
-  'Shapes',
+  'shapes',
   ARRAY_AGG(name)
 FROM
   Shapes
 UNION ALL
 SELECT
-  'Fillings',
+  'fillings',
   ARRAY_AGG(name)
 FROM
   Fillings
 UNION ALL
 SELECT
-  'Toppings',
+  'toppings',
   ARRAY_AGG(name)
 FROM
   Toppings
