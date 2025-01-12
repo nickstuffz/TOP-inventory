@@ -99,9 +99,13 @@ span {
 
 .donut-elements-cont,
 .elements-cont-donut,
-.element-cont-elements,
-.menu-elements-cont-donut {
+.element-cont-elements {
   display: flex;
+  gap: 4px;
+}
+
+.menu-elements-cont-donut {
+  display: none;
   gap: 4px;
 }
 

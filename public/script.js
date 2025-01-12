@@ -17,6 +17,7 @@ function editElementClick(element_category) {
 
 function addDonutElementClick(donut_id) {
   console.log(`addDonutElementClick: ${donut_id}`);
+  modalModule.openElementMenu();
 }
 
 const modalModule = (function () {
@@ -52,6 +53,7 @@ const modalModule = (function () {
     console.log("closeModal");
     bgModal.style.display = "";
     bgModal.removeEventListener("click", modalClick);
+    closeElementMenu();
   }
 
   function renderElements(set, container) {
@@ -69,6 +71,7 @@ const modalModule = (function () {
   }
 
   function clearContainers() {
+    console.log("clearContainers");
     donutElementsContainer.replaceChildren(
       donutElementsContainer.firstElementChild
     );
@@ -106,11 +109,9 @@ const modalModule = (function () {
           names: donut[category],
         };
       });
-
       renderElements(donutElements, donutElementsContainer);
 
       // menu elements
-
       const missingElements = elements.map((element) => {
         let missingElementNames;
 
@@ -132,10 +133,21 @@ const modalModule = (function () {
     }
   }
 
+  function openElementMenu() {
+    console.log("openElementMenu");
+    missingElementsContainer.style.display = "flex";
+  }
+
+  function closeElementMenu() {
+    console.log("closeElementMenu");
+    missingElementsContainer.style.display = "none";
+  }
+
   return {
     openModal,
     modalClick,
     closeModal,
     populateModal,
+    openElementMenu,
   };
 })();
