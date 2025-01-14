@@ -63,6 +63,7 @@ const modalModule = (function () {
         elementCat.names.forEach((element) => {
           const span = document.createElement("span");
           span.classList.add(elementCat.category.slice(0, -1));
+          span.addEventListener("click", elementClick);
           span.textContent = element;
           container.appendChild(span);
         });
@@ -76,6 +77,12 @@ const modalModule = (function () {
       donutElementsContainer.firstElementChild
     );
     missingElementsContainer.replaceChildren();
+  }
+
+  function elementClick(event) {
+    console.log("elementClick");
+    const element = event.target;
+    console.log(element);
   }
 
   function populateModal(donut_id) {

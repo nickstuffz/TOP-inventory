@@ -2,6 +2,7 @@
 - Re-style to mobile friendly
 - Onclick elements to show price
 - Maybe change description from TEXT to VARCHAR(with a size)
+- Get element menu to popup on the actual click location
 
 Note: turn back on HTML script validation in settings.json after finishing this project
 
